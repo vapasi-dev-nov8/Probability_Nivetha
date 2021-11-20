@@ -14,7 +14,7 @@ public class Probability {
     /*
     * To find the probability of an event not occurring  P(A`) = 1-P(A)
     * */
-    public Probability notOccuredOutcpme() {
+    public Probability complement() {
         return new Probability(chancesOfOutcome - this.value);
     }
     /*
@@ -30,7 +30,8 @@ public class Probability {
      * Formula for the probability of A or B (independent events):p(A or B)=p(A) + p(B) – p(A and B).
      * */
     public Probability union(Probability probabilityOfThat) {
-        return new Probability(this.value + probabilityOfThat.value - (this.intersection(probabilityOfThat).value)) ;
+        Probability intersectionProbability = this.intersection(probabilityOfThat);
+        return new Probability(this.value + probabilityOfThat.value - intersectionProbability.value) ;
     }
 
     @Override
@@ -38,7 +39,7 @@ public class Probability {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Probability that = (Probability) o;
-        return this.value  == that.value;
+        return Double.compare(that.value, value) == 0;
     }
 
     @Override
